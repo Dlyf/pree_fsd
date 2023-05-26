@@ -1,0 +1,56 @@
+@startuml
+
+class Dossier <<entity>> {
+    + <<identifiant>> refDossier
+    + nomFichierExpertise
+}
+
+class Vehicule <<entity>> {
+    + <<identifiant>> immatriculation
+    + anneeMiseEnCirculation
+    + couleur
+}
+
+class Modele <<entity>> {
+    + <<identifiant>> id
+    + libelle
+    + marque
+}
+
+class PrestationRemiseEnEtat <<entity>> {
+    + idPrestationRemiseEnEtat
+    + libelle
+    + description
+}
+
+class Photo <<entity>> {
+    + idPhoto
+    + nomFichier
+}
+
+class PrestationPeinture <<entity>> {
+    + idPrestationPeinture
+    + idPrestationRemiseEnEtat
+    + idVehicule
+    + idPhoto
+}
+
+class PrestationPiece <<entity>> {
+    + idPrestationPiece
+    + idPrestationRemiseEnEtat
+    + idVehicule
+    + idPhoto
+    + quantite
+    + reference
+}
+
+Dossier "0..1" -- "1" Vehicule
+Vehicule "0..*" -- "1" Modele
+Dossier "1" -- "0..*" PrestationPeinture
+Dossier "1" -- "0..*" PrestationPiece
+PrestationPeinture "1" -- "0..1" Photo
+PrestationPiece "1" -- "0..1" Photo
+PrestationPeinture "1" -- "0..1" PrestationRemiseEnEtat
+PrestationPiece "1" -- "0..1" PrestationRemiseEnEtat
+
+@enduml
